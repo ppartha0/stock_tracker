@@ -1,0 +1,30 @@
+<div class="page-header">
+  <h1>
+    Trackings
+    <a href="/trackings/new" class="btn btn-lg btn-success">New Tracking</a>
+  </h1>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-striped table-hover">
+      <tr>
+        <th>Stock</th>
+        <th>User</th>
+        <th>Actions</th>
+      </tr>
+
+      <% @trackings.each do |tracking| %>
+      <tr>
+        <td><%= tracking.stock_id %></td>
+        <td><%= tracking.user_id %></td>
+        <td>
+          <a href="/trackings/<%= tracking.id %>" class="btn btn-primary">Show</a>
+          <a href="/trackings/<%= tracking.id %>/edit" class="btn btn-warning">Edit</a>
+          <a href="/delete_tracking/<%= tracking.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

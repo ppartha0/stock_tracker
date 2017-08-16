@@ -1,0 +1,117 @@
+<!-- Validation failure messages -->
+<% if @portfolio.errors.any? %>
+  <% @portfolio.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+
+<!-- Failure message if provided an invalid stock identifier or no price-->
+<% if @errormsg %>
+  <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= @errormsg %>
+  </div>
+<% end %>
+
+
+<div class="page-header">
+  <h3>Edit Portfolio</h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <form action="/update_portfolio/<%= @portfolio.id %>" method="post">
+      <!-- Label and input for stock ticker -->
+      
+        <!-- Hidden input for authenticity token to protect from forgery -->
+        <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+        
+        <!-- Hidden input for user_id -->
+        <input type="hidden" id="user_id" name="user_id" placeholder="User" class="form-control" value="<%= current_user.id %>">
+        
+        <div class="form-group">
+          <label for="portname" class="control-label">
+            Portfolio Name
+          </label>
+          <input type="text" id="portname" name="portname" class="form-control" value="<%= @portfolio.portname %>">
+        </div>
+        
+        <button class="btn btn-info">
+          Update Portfolio Name
+        </button>
+     </form>
+     
+    <h4>Stocks you are currently tracking</h4>  
+
+      <table class="table table-striped table-hover">
+        <tr>
+          <th>Ticker</th>
+          <th>Tracked Price</th>
+          <th>Actions</th>
+      </tr>
+
+      <% @portfolio.stocks.each do |stock| %>
+      <tr>
+        <td><a href="/stocks/<%= stock.id %>"><%= stock.ticker %></td>
+        <td><%= stock.price %></td>
+        <td>
+          <a href="/stocks/<%= stock.id %>" class="btn btn-primary">Show</a>
+          <a href="/stocks/<%= stock.id %>/edit" class="btn btn-info">Edit</a>
+          <a href="/delete_stock/<%= stock.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+    
+<div class="row">
+  <div class="col-md-12">    
+      <h4>Add a new stock to your portfolio</h4>
+        <form action="/create_stock/" method="post">
+        <!-- Hidden input for authenticity token to protect from forgery -->
+        <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+        <!-- Label and input for user_id -->
+        <input type="hidden" id="user_id" name="user_id" placeholder="User" class="form-control" value="<%= current_user.id %>">
+        
+        <!-- Hidden label for portfolio id -->
+        <input type="hidden" id="portfolio_id" name="portfolio_id" placeholder="Portfolio" class="form-control" value="<%= @portfolio.id %>">
+        
+        
+        <!-- Label and input for stock ticker -->
+        <div class="form-group">
+          <label for="stock_id" class="control-label">
+            Stock Ticker
+          </label>
+
+          <input type="text" id="stock_id" name="stock_id" placeholder="E.g. MSFT" class="form-control">
+        </div>
+      
+        <!-- Label and input for tracked price -->
+        <div class="form-group">
+          <label for="price" class="control-label">
+            Tracked Price
+          </label>
+
+          <input type="decimal" id="price" name="price" placeholder="E.g. 75.00" class="form-control">
+        </div>
+
+
+        <button class="btn btn-info">
+          Add Stock To Portfolio
+        </button>
+          or
+        <a href="/portfolios/<%= @portfolio.id %>">Cancel</a>
+        
+
+      </form>
+      <p></p>
+      <a href="/delete_portfolio/<%= @portfolio.id %>" class="btn btn-danger">Delete This Portfolio</a>
+  </div>
+</div>

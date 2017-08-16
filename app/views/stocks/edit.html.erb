@@ -1,0 +1,68 @@
+<!-- Validation failure messages -->
+<% if @stock.errors.any? %>
+  <% @stock.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<!-- Failure message if provided an  invalid stock identifier or no price-->
+<% if @errormsg %>
+  <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= @errormsg %>
+  </div>
+<% end %>
+
+
+
+<div class="page-header">
+  <h3>Edit Stock: <%= @stock.ticker %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <form action="/update_stock/<%= @stock.id %>" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+      
+      <!-- Hidden label for portfolio id -->
+      <input type="hidden" id="portfolio_id" name="portfolio_id" placeholder="Portfolio" class="form-control" value="<%= @stock.portfolio_id %>">
+      
+      
+      <!-- Label and input for ticker -->
+      <div class="form-group">
+        <label for="ticker" class="control-label">
+          Ticker
+        </label>
+
+        <input type="text" id="ticker" name="ticker" placeholder="Ticker" class="form-control" value="<%= @stock.ticker %>">
+      </div>
+
+      <!-- Label and input for price -->
+      <div class="form-group">
+        <label for="price" class="control-label">
+          Price
+        </label>
+
+        <input type="text" id="price" name="price" placeholder="Price" class="form-control" value="<%= @stock.price %>">
+      </div>
+
+      <!-- Readonly label and input for portfolio name -->
+      <div class="form-group">
+        <label for="portname" class="control-label">
+          Portfolio
+        </label>
+        <input type="text" id="portname" name="portname" placeholder="Portfolio Name" class="form-control" value="<%= Portfolio.find(@stock.portfolio_id).portname %>" readonly>
+      </div>
+
+      <button class="btn btn-info">
+        Update Stock
+      </button>
+      or
+      <a href="/stocks/<%= @stock.id %>">Cancel</a>
+    </form>
+  </div>
+</div>
