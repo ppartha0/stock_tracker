@@ -17,7 +17,7 @@
       
       <% @portfolios.each do |portfolio| %>
         <tr>
-          <td><%= portfolio.portname %></td>
+          <td><a href="/portfolios/<%= portfolio.id %>"><%= portfolio.portname %></a></td>
           <td>
             <a href="/portfolios/<%= portfolio.id %>" class="btn btn-primary">Details</a>
             <a href="/portfolios/<%= portfolio.id %>/edit" class="btn btn-info">Edit</a>

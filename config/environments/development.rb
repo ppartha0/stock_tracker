@@ -44,8 +44,8 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address:              'smtp.gmail.com',
     port:                 587,
-    domain:               'https://stock-tracker-pparthasarathy.c9users.io/',
-    user_name:            'stockpricetracker',
+    domain:               'stock-tracker-pparthasarathy.c9users.io',
+    user_name:            'stockpricetracker@gmail.com',
     password:             'Blackstar1234',
     authentication:       'plain',
     enable_starttls_auto: true  }
