@@ -6,7 +6,10 @@ gem 'rails', '5.0.2'
 
 
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+group :development do
+  gem 'sqlite3'
+end
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -51,3 +54,8 @@ gem 'starter_generators', :git => 'https://github.com/raghubetina/starter_genera
 gem 'devise'
 gem 'font-awesome-sass', '~> 4.7.0'
 gem 'fusioncharts-rails', :git => 'https://github.com/fusioncharts/rails-wrapper'
+
+group :production do
+  gem 'pg'
+  gem 'rails_12factor'
+end
