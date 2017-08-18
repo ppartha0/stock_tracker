@@ -49,5 +49,6 @@ Rails.application.configure do
     password:             'Blackstar1234',
     authentication:       'plain',
     enable_starttls_auto: true  }
-    
+  
+  
 end

@@ -57,3 +57,7 @@ group :production do
   gem 'pg'
   gem 'rails_12factor'
 end
+
+gem 'mailgun-ruby', '~>1.0.2', require: 'mailgun'
+gem 'mail'
+gem 'mailgunner', '~> 2.4'

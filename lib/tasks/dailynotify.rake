@@ -8,7 +8,6 @@ namespace :dailynotify do
             #### Step 2: Loop through list of stock records by user
             user.stocks.each do |stock|
                 #### Step 3: For each stock record, run an API query to get the High and Low Price.
-                
                 userticker = stock.ticker
                 userprice = stock.price.to_f
                 ## Retrieve H/L for the stock from AlphaVantage API
@@ -20,15 +19,15 @@ namespace :dailynotify do
                 userlow = parsed_data["Time Series (Daily)"][querydatetime]["3. low"].to_f
                 #### Step 4: If tracking price lies within the band, send the user an email by calling UserMailer
                 if userprice > userlow && userprice < userhigh
-                    puts "#{user.username.capitalize}, #{stock.ticker} in your #{Portfolio.find(stock.portfolio_id).portname} portfolio hit its target price of #{stock.price} today. Time to get to work!"
+                    # puts "#{user.username.capitalize}, #{stock.ticker} in your #{Portfolio.find(stock.portfolio_id).portname} portfolio hit its target price of #{stock.price} today. Time to get to work!"
+                    ticker = stock.ticker
+                    portname = Portfolio.find(stock.portfolio_id).portname
+                    price = stock.price
+                    #puts user.username, ticker
+                    UserMailer.notification_email(user, ticker, portname, price).deliver
+                    
                 end
             end
         end
-        
-
-         
-        # @user = current_user
-        # UserMailer.notification_email(@user).deliver
-        # puts "done"
     end
 end
