@@ -62,5 +62,7 @@ Rails.application.routes.draw do
   # # DELETE
   # get "/delete_tracking/:id", :controller => "trackings", :action => "destroy"
 
-  
+  #### Add an About page
+  #--------------------------------------
+  get "/about", :controller => "pages", :action => "about"
 end
